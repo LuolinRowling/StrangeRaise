@@ -1,6 +1,5 @@
 # 陌筹 StrangeRaise
 
-
 ## 项目背景
 
 大学生是一个富有想法和意见的群体，但其想法和意见的实现却往往由于“单兵作战”而显得势单力薄。陌筹希望为大学生群体提供一个开放的筹众平台，在这里他们可以发起自己的项目，招募人手、“招兵买马”，征求意见、展开讨论，利用互联网让每个大学生都能够拥有实现其想法的能力。
@@ -26,21 +25,18 @@
 网站整体采用扁平化风格FlatUI框架提供的控件样式，如输入框、按钮等。
 
 ![](http://i.imgur.com/ykxFjnd.png)
-<div style="text-align:center">
+
 Fig. 首页及项目卡片
-</div>
 
 网站主体为手写DIV+CSS，色调上与FlatUI贴合，在网站中大量采用卡片式的展示风格，如首页对项目摘要内容的展示，项目具体内容界面显示等。
 
 ![](http://i.imgur.com/xCRJQzy.png)
-<div style="text-align:center">
+
 Fig. 项目内容查看页
-</div>
 
 ![](http://i.imgur.com/1xrUA70.png)
-<div style="text-align:center">
+
 Fig. 个人页
-</div>
 
 ### FormValidation表单验证插件
 
@@ -49,14 +45,12 @@ Fig. 个人页
 由于FlatUI是基于Bootstrap的，于是项目采用一个针对Bootstrap框架的基于jQuery的表单验证插件FormValidation，FormValidation可对一个输入框同时做多种验证，并异步显示出来。
 
 ![](http://i.imgur.com/CYF7rTk.png)
-<div style="text-align:center">
+
 Fig. 注册界面邮箱验证错误
-</div>
 
 ![](http://i.imgur.com/nNZNaH9.png)
-<div style="text-align:center">
+
 Fig. 注册界面邮箱验证成功
-</div>
 
 ### 多平台自适应
 
@@ -65,16 +59,13 @@ Fig. 注册界面邮箱验证成功
 在前端实现时，网站使用了Bootstrap的栅栏系统，将卡片式的模块嵌入栅栏系统中，使其成为响应式，根据窗口大小显示内容。网站设置了最小宽度，既可以保证在手机上的显示效果，又能保证在电脑端将浏览器窗口缩放时，不会使文字内容溢出其所属块。
 
 ![](http://i.imgur.com/kQygRLr.jpg)
-<div style="text-align:center">
+
 Fig. 首页PC端、手机端效果展示
-</div>
 
 ![](http://i.imgur.com/FdBzTOz.png)
-<div style="text-align:center">
+
 Fig. 登录模态框PC端、手机端效果展示
-</div>
 
 ![](http://i.imgur.com/cQ7tXaB.png)
-<div style="text-align:center">
+
 Fig. 项目内容界面PC端、手机端效果展示
-</div>
