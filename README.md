@@ -24,10 +24,10 @@
 
 网站整体采用扁平化风格FlatUI框架提供的控件样式，如输入框、按钮等。
 
-<div align="center">
+<p align="center">
 <img src="http://i.imgur.com/ykxFjnd.png">
 Fig. 首页及项目卡片
-</div>
+</p>
 
 网站主体为手写DIV+CSS，色调上与FlatUI贴合，在网站中大量采用卡片式的展示风格，如首页对项目摘要内容的展示，项目具体内容界面显示等。
 
