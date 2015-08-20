@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="zh-cn">
+  <meta charset="UTF-8">
+  <title>陌筹 | MoChou</title>
+  <meta name="description" content="陌筹 MoChou 众筹 平台">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+  <!-- 加载Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+  <!-- 加载Flat-UI -->
+  <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+  <!-- 加载Remodal样式 -->
+  <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+  <!-- 加载陌筹自定义样式 -->
+  <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+ 
+    <!--Ueditor-->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/ueditor.all.min.js"> </script>
+    <!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+    <!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/lang/zh-cn/zh-cn.js"></script>
+
+
+  <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+  <!--[if lt IE 9]>
+  <script type="text/javascript" src="js/html5shiv.js"></script>
+  <script type="text/javascript" src="js/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="mc_background hanamin remodal-bg">
+           <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <form class="navbar-form navbar-left" action="#" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="搜索..."/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default" title="搜索">
+                                    <span class="fui-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/mochou/index.php/Home/User/">
+                            <span class="fui-user"></span>
+                            <span style="margin-left: 4px;">{$_SESSION['nickname']}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/Case">
+                            <span class="fui-new" title="发起项目"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fui-bubble" title="消息通知"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/User/">
+                            <span class="fui-gear" title="设置"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/User/logout">
+                            <span class="fui-exit" title="登出"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+
+
+  <div class="container" style="padding-top: 80px;">
+    <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
+      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="c1">
+        <div class="content-card">
+          <div class="content-card-title"> <strong><p>发起一个伟大的活动吧！</p></strong> 
+          </div>
+          <div class="content-card-state">
+            <img id="state" src="/mochou/Public/img/state3.png"></div>
+          <div class="content-card-pic">
+            <img src="{$_SESSION['head']}"></div>
+          <div class="content-card-main">
+            <div class="row">
+                            <form action="/mochou/index.php/Home/Case/initiate" class="form" method="post">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                <strong>我的标题</strong>
+              </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" >
+                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="输入标题" name="title">
+                                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle"> <strong>我想做什么</strong>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" >
+                <div class="form-group">
+                                  <div>
+                                      <script id="editor" type="text/plain" style="height:200px;"></script>
+                                  </div>
+                                </div>
+              </div>
+              <input id="str_content" name="content" type="hidden">
+              <input id="str_htmlcontent" name="htmlcontent" type="hidden">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                <strong>我需要这样的你</strong>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+
+                <div class="form-group">
+                  <table class="table" id="ci" name="ci">
+                    <thead>
+                      <tr>
+                        <th>专长</th>
+                        <th>人数</th>
+                                                <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><input type="text" class="form-control" value="" placeholder="输入特长"></td>
+                        <td><input type="text" class="form-control" value="" placeholder="输入人数"></td>
+                                                <td style="text-align:center">
+                                                    <button id="delB" onclick="del(this)" class="btn btn-danger" disabled>删除</button>
+                                                </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                                    <input type="button" class="btn btn-info" onclick="add_one()" value="增加参与者" id="xfmbutton">
+                </div>
+              </div>
+                            <input id="str_res" name="staff" type="hidden">
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" >
+                <strong>我想给你</strong>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+                <div class="form-group">
+                                  <textarea class="form-control" rows="3" style="max-width:100%" name="feedback"></textarea>
+                                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" >
+                <strong>如何找到我</strong>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" >
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" style="padding-left: 0px;" >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">微信：</button>
+                                          </span>
+                                          <input type="text" class="form-control" name="wechat">
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" style="padding-right: 0px;"  >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">邮箱：</button>
+                                          </span>
+                                          <input type="text" class="form-control" name="email">
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" style="padding-left: 0px;"  >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">手机：</button>
+                                          </span>
+                                          <input type="text" class="form-control" name="phone">
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" style="padding-right: 0px;"  >
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">Q Q：</button>
+                                          </span>
+                                          <input type="text" class="form-control" name="qq">
+                                        </div><!-- /input-group -->
+                                    </div>
+                                </div>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                <strong>标签</strong>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" id="tags_in" >
+                <div class="form-group">
+                                    <div class="tagsinput-primary">
+                                        <input maxlength="1" name="label" class="tagsinput" data-role="tagsinput" placeholder="输入标签" style="display: none;">
+                                    </div>
+                                </div>
+              </div>
+              <div id="customerBlock">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 buttonStyle" >
+                  <button class="btn btn-embossed btn-inverse" type="submit" onclick="javascript:setInput();">提交</button>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 buttonStyle">
+                  <button class="btn btn-embossed btn-inverse" type="button" onclick="javascript:window.location.href='/mochou/index.php/Home/Index'">取消</button>
+                </div>
+              </div>
+                            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
+    </div>
+  </div>
+
+</div>
+<!--Ueditor-->
+<script type="text/javascript">
+
+    //实例化编辑器
+    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+    var ue = UE.getEditor('editor');
+
+   
+    /*删除列*/
+    function del(btn) {
+        var table_now = document.all.ci;
+        var rows_now = table_now.rows.length;
+        
+        var tr = btn.parentElement.parentElement;
+        var tbl = tr.parentElement;
+        tbl.deleteRow(tr.rowIndex-1);
+        if(rows_now == 3){
+            document.getElementById("delB").disabled = true;
+        }
+        if(rows_now != 6){
+          document.getElementById("xfmbutton").disabled = false;
+        }
+  } 
+    
+    /*增加列*/
+    function add_one(){
+    var tbl = document.all.ci;
+    var rows = tbl.rows.length;
+    var tr = tbl.insertRow(rows);
+        if(rows >= 2){
+            document.getElementById("delB").disabled = false;
+        }
+        
+    var job = tr.insertCell(0);
+    job.innerHTML = '<input type="text" class="form-control" value="" placeholder="输入特长">';
+    var nums = tr.insertCell(1);
+    nums.innerHTML = '<input type="text" class="form-control" value="" placeholder="输入人数">';
+    var del = tr.insertCell(2);
+    del.innerHTML = '<button id="delB" onclick="del(this)" class="btn btn-danger">删除</button>';
+    if(rows == 6){
+          document.getElementById("xfmbutton").disabled = true;
+        }
+    count++;
+  }
+
+  function setInput(){
+      var table = document.getElementById("ci");
+      var textinputs = table.getElementsByTagName('input');
+      var str = textinputs[0].value;
+      for(var i = 1; i < textinputs.length; i++){
+          str = str  + "," + textinputs[i].value;
+      }
+      var res = document.getElementById("str_res");
+      res.value = str;
+
+      var content = document.getElementById("str_content");
+      content.value = ue.getContentTxt();
+
+      var htmlcontent = document.getElementById("str_htmlcontent");
+      htmlcontent.value = ue.getContent();
+  }
+    
+</script> 
+
+<!-- Flat-UI必要的JavaScript插件 -->
+<script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/jquery.remodal.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/mochou.js"></script>
+<!-- 加载Remodal配置和JavaScript -->
+<script>
+  window.remodalGlobals = {
+    namespace: "remodal",
+    defaults: {
+        hashTracking: false,
+        closeOnEscape: true,
+        closeOnAnyClick: true
+    }
+  };
+</script>
+
+<script type="text/javascript">
+    document.getElementById("c2").style.minHeight = document.getElementById("c1").offsetHeight + "px";
+</script>
+</body>
+</html>

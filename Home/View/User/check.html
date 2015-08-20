@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>陌筹 | MoChou</title>
+    <!-- 搜索引擎优化 -->
+    <meta name="description" content="陌筹 MoChou 众筹 平台">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+    <!-- 加载Bootstrap样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+    <!-- 加载Flat-UI样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+
+    <!-- 加载Remodal样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+    <!-- 加载FormValidation样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/formValidation.css">
+
+    <!-- 加载陌筹自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+    <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="mc_background remodal-bg">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <form class="navbar-form navbar-left" action="#" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="搜索..."/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn" title="搜索">
+                                        <span class="fui-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-user"></span>
+                                <span style="margin-left: 4px;">{$_SESSION['nickname']}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/Case">
+                                <span class="fui-new" title="发起项目"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fui-bubble" title="消息通知"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-gear" title="设置"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/logout">
+                                <span class="fui-exit" title="登出"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="padding-top:85px">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="function-list-group">
+                        <div class="person-info" >
+                            <a style="padding:0;margin:0;cursor:default">
+                                <div class="person-img">
+                                    <img src="{$_SESSION['head']}"/>
+                                </div>
+                            </a>
+                            <a style="cursor:default">
+                                <table align="center">
+                                    <tr align="left">
+                                        <td>昵称：</td>
+                                        <td>{$_SESSION['nickname']}</td>
+                                    </tr>
+                                    <tr align="left">
+                                        <td>邮箱：</td>
+                                        <td>{$_SESSION['username']}</td>
+                                    </tr>
+                                </table>
+                            </a>
+                            <a id="projectsManagement" onclick="changeState(this)" style="cursor:pointer">项目管理</a>
+                            <a id="modifyPassword" onclick="changeState(this)" style="cursor:pointer">修改密码</a>
+                            <a id="modifyNickname" onclick="changeState(this)" style="cursor:pointer">修改昵称</a>
+                            <a id="modifyAvatar" onclick="changeState(this)" style="cursor:pointer">修改头像</a>
+                            <a id="setPersonalTag" onclick="changeState(this)" style="cursor:pointer">个人标签</a>
+                            <a id="relativeProject" onclick="changeState(this)" style="cursor:pointer">我的动态</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div id="projectsManagementBlock" class="modify-info" style="display:none">
+                        <h4 style="margin:0;padding-top:20px">项目管理</h4>
+                        <hr/>
+                        <div class="container-fluid">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                    <th style="text-align:center">序　号</th>
+                                    <th style="text-align:center">项目名</th>
+                                    <th style="text-align:center">发起人</th>
+                                    <th style="text-align:center">操　作</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <volist name="cases" id="case">
+                                 <tr>
+                                        <td>{$case['id']}</td>
+                                        <td><a href="/mochou/index.php/Home/Case/view?caseid={$case['caseid']}">{$case['title']}</a></td>
+                                        <td><a href="/mochou/index.php/Home/User/view?id={$case['userid']}">{$case['nickname']}</a></td>
+                                        <td>
+                                            <button type="button" class="btn btn-xs btn-danger" onclick="deletecase({$case['caseid']})">删除</button>
+                                        </td>
+                                 </tr>
+                                </volist>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="modifyNicknameBlock" class="modify-info" style="display:none">
+                        <h4 style="margin:0;padding-top:20px">修改昵称</h4>
+                        <hr/>
+                        <form id="modify-nickname-form">
+                            <div class="row" style="margin-bottom: 20px">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right">
+                                    当前昵称：
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="text-align:left">
+                                    {$_SESSION['nickname']}
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right">
+                                    新昵称：
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 form-group" style="text-align:left;">
+                                    <input type="text" style="width:60%;" class="form-control" name="newnickname" id="newnickname" placeholder="输入你的新昵称">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right"></div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="text-align:left;margin-bottom:20px">
+                                    <button class="btn btn-primary btn-embossed" style="width:60%" onclick="changenick()">确　定</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="modifyPasswordBlock" class="modify-info" style="display:none">
+                          <h4 style="margin:0;padding-top:20px">修改密码</h4>
+                        <hr/>
+                        <form id="modify-password-form">
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right">
+                                    当前密码：
+                                </div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 form-group" style="text-align:left">
+                                    <input type="password" style="width:60%;" class="form-control" name="oldpassword" placeholder="输入你的当前密码" id="oldpassword">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right">
+                                    新密码：
+                                </div>
+                                <div class="col-xs-8  col-sm-8 col-md-8 col-lg-8 form-group">
+                                    <input type="password" style="width:60%;" class="form-control" name="newpassword" placeholder="输入你的新密码" id="newpassword">
+                                </div>
+                            </div>
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right">
+                                    确认密码：
+                                </div>
+                                <div class="col-xs-8  col-sm-8 col-md-8 col-lg-8 form-group">
+                                    <input type="password" style="width:60%;" class="form-control" name="repassword" placeholder="再次输入你的新密码">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" style="text-align:right"></div>
+                                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8" style="text-align:left;margin-bottom:20px">
+                                    <button onclick="changepass()" class="btn btn-primary btn-embossed" style="width:60%">确　定</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="modifyAvatarBlock" class="modify-info" style="display:none">
+                        <h4 style="margin:0;padding-top:20px">修改头像</h4>
+                        <hr/>
+                        <div id="altContent">
+                        </div>
+                    </div>
+                    
+                    <form action="/mochou/index.php/Home/User/updateLabel" method="post">
+                    <div id="setPersonalTagBlock" class="modify-info" style="display:none">
+                        <h4 style="margin:0;padding-top:20px">个人标签</h4>
+                        <hr/>
+                        <div style="width:500px;margin:0 auto;padding-bottom:20px;" class="tagsinput-primary">
+                          <input class="tagsinput" data-role="tagsinput" placeholder="输入标签，回车添加" style="display:none" name="label" value={$list} />
+                          <button type="submit" class="btn btn-primary btn-embossed" style="margin-top:20px;width:60%">保　存</button>
+                        </div>
+                    </div>
+                    </form>
+                    <div id="relativeProjectBlock" class="modify-info" style="display:none">
+                        <h4 style="margin:0;padding-top:20px">我的动态</h4>
+                        <hr />
+                        <div style="text-align:left;padding-left:50px;padding-right:50px;margin-bottom:10px">
+                            <p style="margin:0"><strong>我发起的项目</strong></p>
+                        <hr style="border-color:rgba(52, 73, 94, 0.5);margin-top:10px;margin-bottom:10px;" />
+                        <volist name="listcreate" id="vo">
+                         <div style="text-align:left;margin-left:10px"><img src="/mochou/Public/img/point.png" style="padding-bottom:5px;padding-right:10px"><a style="cursor:pointer"  href="/mochou/index.php/Home/Case/view?caseid={$vo['id']}">{$vo['title']}</a></div>
+                        </volist>
+                        </div>
+
+                         <div style="text-align:left;padding-left:50px;padding-right:50px;margin-bottom:10px">
+                            <p style="margin:0"><strong>我加入的项目</strong></p>
+                            <hr style="border-color:rgba(52, 73, 94, 0.5);margin-top:10px;margin-bottom:10px;" />
+                        
+                          <volist name="listjoin" id="vo1">
+                         <div style="text-align:left;margin-left:10px"><img src="/mochou/Public/img/point.png" style="padding-bottom:5px;padding-right:10px"><a style="cursor:pointer"  href="/mochou/index.php/Home/Case/view?caseid={$vo1['id']}">{$vo1['title']}</a></div>
+                        </volist>
+                        </div>
+                          <div style="text-align:left;padding-left:50px;padding-right:50px;margin-bottom:10px;padding-bottom:20px">
+                            <p style="margin:0"><strong>我关注的项目</strong></p>
+                            <hr style="border-color:rgba(52, 73, 94, 0.5);margin-top:10px;margin-bottom:10px;" />
+                        
+                         <volist name="listfocus" id="vo2">
+                         <div style="text-align:left;margin-left:10px"><img src="/mochou/Public/img/point.png" style="padding-bottom:5px;padding-right:10px"><a style="cursor:pointer"  href="/mochou/index.php/Home/Case/view?caseid={$vo2['id']}">{$vo2['title']}</a></div>
+                        </volist>
+
+                        </div>
+                    </div>
+
+                    <div id="welcomeBlock" class="modify-info" style="display:block;margin:0;padding:133px">
+                        <h1 style="margin:0">欢迎来到陌筹！</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flat-UI必要的JavaScript插件 -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+    <!-- 加载和配置formValidation -->
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/formValidation.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/bootstrap.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/md5.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#modify-nickname-form')
+            .formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                fields: {
+                    newnickname: {
+                        validators: {
+                            notEmpty: {
+                                message: '新昵称不能为空'
+                            },
+                            stringLength: {
+                                max: 20,
+                                message: '昵称长度不能超过20个字符'
+                            }
+                        }
+                    }
+                }
+            });
+        $('#modify-password-form')
+            .formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                fields: {
+                    oldpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: '当前密码不能为空'
+                            }
+                        }
+                    },
+                    newpassword: {
+                        validators: {
+                            notEmpty: {
+                                message: '新密码不能为空'
+                            }
+                        }
+                    },
+                    repassword: {
+                        validators: {
+                            notEmpty: {
+                                message: '已确认密码？'
+                            }
+                        }
+                    }
+                }
+            });
+    });
+    </script>
+    <!-- M4头像编辑器 -->
+    <script src="http://open.web.meitu.com/sources/xiuxiu.js" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function deletecase(caseid){
+            window.location.href="/mochou/index.php/Home/Case/delete?caseid="+caseid;
+        }
+
+        function loadMeitu() {
+            /*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
+            xiuxiu.embedSWF("altContent", 5, "90%", "465");
+            //修改为您自己的图片上传接口
+            //xiuxiu.setUploadURL("http://web.upload.meitu.com/image_upload.php");
+            xiuxiu.setUploadURL("http://localhost/mochou/index.php/Home/User/saveHeadPortrait");
+            xiuxiu.setUploadType(2);
+            xiuxiu.setUploadDataFieldName("Filedata");
+
+            xiuxiu.onInit = function () { 
+                xiuxiu.loadPhoto("");//修改为要处理的图片url
+            }
+            xiuxiu.onUploadResponse = function (data) {
+                if(data){
+                    alert("头像设置成功");
+                    location.href="/mochou/index.php/Home/User/index";            
+                }else{
+                    alert("头像设置失败");    
+                }
+            }
+        }
+    </script>
+    <!-- 其他的JavaScript -->
+    <script type="text/javascript">
+    function ajaxFunction(url){
+        var xmlHttp;
+        try{
+            // Firefox, Opera 8.0+, Safari
+            xmlHttp = new XMLHttpRequest();    // 实例化对象
+        }catch(e){
+            // Internet Explorer
+            try{
+                xmlHttp = new ActiveXObject( "Msxml2.XMLHTTP" );
+            }catch (e){
+                try{
+                    xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+                }catch(e){
+                    alert("您的浏览器不支持AJAX！");
+                    return false;
+                }
+            }
+        }
+        xmlHttp.onreadystatechange = function(){
+            debugger;
+            if(xmlHttp.readyState==4 && xmlHttp.status==200){
+                var result=xmlHttp.responseText;
+                if(result.length!=1){
+                    if(result.length!=2){
+                        alert(result);
+                    }else{
+                        window.location.href="/mochou/index.php/Home/User/index";
+                    }
+                }
+            }
+        };
+        xmlHttp.open( "GET", url, true );
+        xmlHttp.send( null );
+    }
+
+    function changepass(){
+        var oldpassword=document.getElementById("oldpassword").value;
+        var newpassword=document.getElementById("newpassword").value;
+        var oldpass=hex_md5(oldpassword);
+        var newpass=hex_md5(newpassword);
+        if(''!=oldpassword&&''!=newpassword){
+            ajaxFunction("/mochou/index.php/Home/User/updatePass?oldpassword="+oldpass+"&newpassword="+newpass);
+        }
+    }
+
+    function changenick(){
+        var nickname=document.getElementById("newnickname").value;
+        if('' != nickname){
+            ajaxFunction("/mochou/index.php/Home/User/updateNickname?newnickname="+nickname);
+        }
+    }
+
+    function changeState(choice){
+        var modifyPassword = document.getElementById('modifyPassword');
+        var modifyNickname = document.getElementById('modifyNickname');
+        var modifyAvatar = document.getElementById('modifyAvatar');
+        var setPersonalTag = document.getElementById('setPersonalTag');
+        var relativeProject = document.getElementById('relativeProject');
+        var modifyPasswordBlock = document.getElementById('modifyPasswordBlock');
+        var modifyNicknameBlock = document.getElementById('modifyNicknameBlock');
+        var modifyAvatarBlock = document.getElementById('modifyAvatarBlock');
+        var setPersonalTagBlock = document.getElementById('setPersonalTagBlock');
+        var welcomeBlock = document.getElementById('welcomeBlock');
+        var relativeProjectBlock = document.getElementById('relativeProjectBlock');
+        var projectsManagement = document.getElementById('projectsManagement');
+        var projectsManagementBlock = document.getElementById('projectsManagementBlock');
+        welcomeBlock.style.display = 'none';
+        if(choice.id === 'modifyPassword'){
+            modifyPasswordBlock.style.display = 'block';
+            modifyNicknameBlock.style.display = 'none';
+            modifyAvatarBlock.style.display = 'none';
+            setPersonalTagBlock.style.display = 'none';
+            relativeProjectBlock.style.display = 'none';
+            modifyPassword.style.backgroundColor = '#ECF0F1';
+            modifyNickname.style.backgroundColor = '#fff';
+            modifyAvatar.style.backgroundColor = '#fff';
+            setPersonalTag.style.backgroundColor = '#fff';
+            relativeProject.style.backgroundColor = '#fff';
+            projectsManagementBlock.style.display = 'none';
+            projectsManagement.style.backgroundColor = '#fff';
+        }
+        else if(choice.id === 'modifyNickname'){
+            modifyPasswordBlock.style.display = 'none';
+            modifyNicknameBlock.style.display = 'block';
+            modifyAvatarBlock.style.display = 'none';
+            setPersonalTagBlock.style.display = 'none';
+            relativeProjectBlock.style.display = 'none';
+            modifyPassword.style.backgroundColor = '#fff';
+            modifyNickname.style.backgroundColor = '#ECF0F1';
+            modifyAvatar.style.backgroundColor = '#fff';
+            setPersonalTag.style.backgroundColor = '#fff';
+            relativeProject.style.backgroundColor = '#fff';
+            projectsManagementBlock.style.display = 'none';
+            projectsManagement.style.backgroundColor = '#fff';
+        }
+        else if(choice.id === 'modifyAvatar') {
+            modifyPasswordBlock.style.display = 'none';
+            modifyNicknameBlock.style.display = 'none';
+            modifyAvatarBlock.style.display = 'block';
+            setPersonalTagBlock.style.display = 'none';
+            relativeProjectBlock.style.display = 'none';
+            modifyPassword.style.backgroundColor = '#fff';
+            modifyNickname.style.backgroundColor = '#fff';
+            modifyAvatar.style.backgroundColor = '#ECF0F1';
+            setPersonalTag.style.backgroundColor = '#fff';
+            relativeProject.style.backgroundColor = '#fff';
+            projectsManagementBlock.style.display = 'none';
+            projectsManagement.style.backgroundColor = '#fff';
+            loadMeitu();
+        }
+        else if(choice.id === 'setPersonalTag') {
+            modifyPasswordBlock.style.display = 'none';
+            modifyNicknameBlock.style.display = 'none';
+            modifyAvatarBlock.style.display = 'none';
+            setPersonalTagBlock.style.display = 'block';
+            relativeProjectBlock.style.display = 'none';
+            modifyPassword.style.backgroundColor = '#fff';
+            modifyNickname.style.backgroundColor = '#fff';
+            modifyAvatar.style.backgroundColor = '#fff';
+            setPersonalTag.style.backgroundColor = '#ECF0F1';
+            relativeProject.style.backgroundColor = '#fff';
+            projectsManagementBlock.style.display = 'none';
+            projectsManagement.style.backgroundColor = '#fff';
+        }
+        else if(choice.id === 'relativeProject') {
+            modifyPasswordBlock.style.display = 'none';
+            modifyNicknameBlock.style.display = 'none';
+            modifyAvatarBlock.style.display = 'none';
+            setPersonalTagBlock.style.display = 'none';
+            relativeProjectBlock.style.display = 'block';
+            modifyPassword.style.backgroundColor = '#fff';
+            modifyNickname.style.backgroundColor = '#fff';
+            modifyAvatar.style.backgroundColor = '#fff';
+            setPersonalTag.style.backgroundColor = '#fff';
+            relativeProject.style.backgroundColor = '#ECF0F1';
+            projectsManagementBlock.style.display = 'none';
+            projectsManagement.style.backgroundColor = '#fff';
+        }
+        else if (choice.id == 'projectsManagement') {
+            modifyPasswordBlock.style.display = 'none';
+            modifyNicknameBlock.style.display = 'none';
+            modifyAvatarBlock.style.display = 'none';
+            setPersonalTagBlock.style.display = 'none';
+            relativeProjectBlock.style.display = 'none';
+            modifyPassword.style.backgroundColor = '#fff';
+            modifyNickname.style.backgroundColor = '#fff';
+            modifyAvatar.style.backgroundColor = '#fff';
+            setPersonalTag.style.backgroundColor = '#fff';
+            relativeProject.style.backgroundColor = '#fff';
+            projectsManagementBlock.style.display = 'block';
+            projectsManagement.style.backgroundColor = '#ECF0F1';
+        }
+    }
+
+    $('input#email').on({
+        keydown: function(event){
+            if (event.which === 32)
+                return false;
+        },
+        change: function(){
+            this.value = this.value.replace(/\s/g, "");
+        }
+    });
+    $('input#password').on({
+        keydown: function(event){
+            if (event.which === 32)
+                return false;
+        },
+        change: function(){
+            this.value = this.value.replace(/\s/g, "");
+        }
+    });
+
+
+   </script>
+</body>
+</html>

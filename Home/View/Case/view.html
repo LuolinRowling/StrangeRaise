@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>陌筹 | MoChou</title>
+    <!-- 搜索引擎优化 -->
+    <meta name="description" content="陌筹 MoChou 众筹 平台">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+    <!-- 加载Bootstrap样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+    <!-- 加载Flat-UI样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+
+    <!-- 加载Remodal样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+    <!-- 加载FormValidation样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/formValidation.css">
+
+    <!-- 加载陌筹自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+    <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="mc_background remodal-bg">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <form class="navbar-form navbar-left" action="#" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="搜索..."/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn" title="搜索">
+                                        <span class="fui-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-user"></span>
+                                <span style="margin-left: 4px;">{$_SESSION['nickname']}&nbsp;</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/Case/">
+                                <span class="fui-new" title="发起项目"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fui-bubble" title="消息通知"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fui-gear" title="设置"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/logout">
+                                <span class="fui-exit" title="登出"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="padding-top: 80px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="c1">
+                    <div class="content-card">
+                        <div class="content-card-title"><strong><p>{$list['title']}</p></strong> 
+                        </div>
+                        <div class="content-card-state">
+                            <?php
+                        if($list['state']==2000) {
+                            echo "<img id='state' src='/mochou/Public/img/state0.png'>";
+                        } else if($list['state']==2001) {
+                            echo "<img id='state' src='/mochou/Public/img/state1.png'>";
+                        } else {
+                            echo "<img id='state' src='/mochou/Public/img/state2.png'>";
+                        }
+                        ?></div>
+                        <div class="content-card-pic">
+                            <img src="{$head}"></div>
+                        <div class="content-card-main">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle">发起人：{$nickname}</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" >发起时间：{$list['publishtime']}</div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle"> <strong>我想做什么</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" >
+                                    {$list['htmlcontent']}
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                                    <strong>我需要这样的你</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+
+                                    <div class="form-group">
+                                        <table class="table">
+                                            <thead >
+                                                <tr>
+                                                    <th>专长</th>
+                                                    <th>人数</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                            for($i = 0; $i < count($staff); $i++) {
+                                              echo "<tr><td>";
+                                              echo $staff[$i]['job'];
+                                              echo "</td><td>";
+                                              echo $staff[$i]['number'];
+                                              echo "</td></tr>";
+                                            }
+                                          ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" >
+                                    <strong>我想给你</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+                                    {$list['feedback']}
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" >
+                                    <strong>如何找到我</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle" >
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" >邮箱：{$contact[3]}</div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle">微信号：{$contact[1]}</div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle" >QQ：{$contact[0]}</div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 infoStyle">手机：{$contact[2]}</div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                                    <strong>标签</strong>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+                                    <?php
+                                    for($i=0; $i < count($label); $i++) {
+                                        echo "<button class='btn btn-primary tags'>";
+                                        echo $label[$i];
+                                        echo "</button> ";
+                                    }
+                                    ?>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                                    <hr/>
+                                </div>
+                                <?php
+                                if(count($supplement)>0) {
+                                    echo "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle'>";
+                                    echo "<strong>我还想说</strong>";
+                                    echo "</div>";
+                                }
+                                ?>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle">
+                                    <?php
+                                    for($i = 0; $i < count($supplement); $i++) {
+                                        echo $supplement[$i];
+                                        echo "</br>";
+                                    }
+                                    ?></div>
+
+                                <div id="addContentBlock" style="display:none">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" >
+                                        <strong>补充项目内容</strong>
+                                    </div>
+                                    <form class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div id="addContentTextarea" class="form-group">
+                                            <textarea id="addcontent" class="form-control" rows="3" placeholder="请输入想要补充的内容"></textarea>
+                                        </div>
+                                    </form>
+                                    <!-- 需要修改!!!!!! -->
+                                    <button class="btn btn-primary btn-embossed" onclick="supplement()">提交</button>
+                                </div>
+
+                                <?php
+                                if($_SESSION['id']==$list['userid']) {
+                                    echo "<div id='customerBlock' style='display:none'>";
+                                } else {
+                                    echo "<div id='customerBlock'>";
+                                }
+                            ?>
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 buttonStyle" >
+                                        <?php
+                                        if($list['state']>=2001) {
+                                            echo "<button class='btn btn-embossed btn-inverse' data-remodal-target='add-project-modal' disabled='disabled'>申请加入</button>";
+                                        } else if($joinstate==4444) {
+                                            echo "<button class='btn btn-embossed btn-inverse' data-remodal-target='add-project-modal'>申请加入</button>";
+                                        } else {
+                                            echo "<button class='btn btn-embossed btn-inverse' onclick='hasSubmitJoin()'>申请加入</button>";
+                                        }
+                                        ?>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 buttonStyle">
+                                        <?php
+                                        if($focusstate==3000) {
+                                            echo "<button id='focusBtn' class='btn btn-embossed btn-inverse' onclick='focusOn()'>关注</button>";
+                                        } else {
+                                            echo "<button id='focusBtn' class='btn btn-embossed btn-danger' onclick='focusOn()'>已关注</button>";
+                                        }
+                                    ?> 
+                                    </div>
+                                </div>
+                                <?php
+                                if($_SESSION['id']==$list['userid']) {
+                                    echo "<div id='ownerBlock'>";
+                                } else {
+                                    echo "<div id='ownerBlock' style='display:none'>";
+                                }
+                                ?>
+                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buttonStyle">
+                                        <button class="btn btn-embossed btn-inverse" onclick="addContent()">补充内容</button>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buttonStyle">
+                                        <?php
+                                    if($list['state']>=2002) {
+                                        echo "<button id='changeStateBtn' class='btn btn-embossed btn-inverse' onclick='changeState()' disabled='disabled'>更改状态</button>";
+                                    } else {
+                                        echo "<button id='changeStateBtn' class='btn btn-embossed btn-inverse' onclick='changeState()'>更改状态</button>";
+                                    }
+                                    ?>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 buttonStyle">
+                                        <button class="btn btn-embossed btn-inverse" onclick="show('{$list['id']}')">查看响应人</button>
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                                    <hr/>
+                                </div>
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+                                    <div><a style="cursor:pointer"  href="/mochou/index.php/Home/Log/show_newLog?caseid={$list['id']}"><span class="fui-plus"></span><span> 发布日志</span></a></div>
+
+                                    <volist name="diary" id="vo"> 
+                                    <div class="log">
+                                    <div class="log-line-left" ><img src="/mochou/Public/img/point-begin.png" ><a  align="center" href="/mochou/index.php/Home/Log/show_log?diaryId={$vo['id']}"><span class="log-title"> {$vo['title']}</span></a></div>
+
+                                    <div class="log-line-right">
+                                        
+                                    <span>{$vo['time']}</span>
+                                    <span>&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="log-like" ><img src="/mochou/Public/img/heart3.png"> ({$vo['support']}) </span>
+                                  
+                                    <span>&nbsp;</span>
+                                    <span class="log-see" ><img src="/mochou/Public/img/see.png"> ({$vo['click']}) </span>
+                              
+                                    </div>
+                                    </div>
+
+                                    </volist>                                   
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4" id="c2">
+                    <div class="content-card" >
+                        <div class="content-card-title-sm"> <strong><p>评论</p></strong> 
+                        </div>
+                        <div class="content-card-main" style="margin:0">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 formStyle" style="margin-top:20px;padding-left:55px;padding-right:55px;">
+                                    <div class="form-group">
+                                    <textarea class="form-control" rows="3" style="resize:none;width:100%" id="reply"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pubBtnStyle">
+                                    <button class="btn btn-embossed btn-inverse" style="width:100%" onclick="reply()">发布评论</button>
+                                </div>
+                                
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle-right">
+                                    <div class="hr-long">
+                                        <hr style="width:100%">
+                                    </div>
+                                </div>
+                                <volist name="replys" id="vo">
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle-right"> <strong>{$vo['nickname']}</strong>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle-right">
+                                        {$vo['content']}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle-right" style="font-size:12px;text-align:right;color:#aaa">
+                                        {$vo['time']}
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle-right">
+                                        <div class="hr-long">
+                                            <hr>
+                                        </div>
+                                    </div>
+                                </volist>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="remodal" data-remodal-id="add-project-modal">
+            <h1>I Need U !</h1>
+            <p>
+                <strong>[ 我已经迫不及待想认识你了 ]</strong>
+            </p>
+            <p>第一步：告诉我你所能做的事情</p>
+            <div class="form-group">
+                <textarea class="form-control" rows="3" style="width:80%;margin:0 auto" id="content"></textarea>
+            </div>
+            <p>第二步：告诉我你的联系方式</p>
+            <div class="form-group">
+                <textarea class="form-control" rows="1" style="width:80%;margin:0 auto" id="contact"></textarea>
+            </div>    
+            <button class="btn btn-primary btn-embossed" onclick="join()" style="width: 260px;">提　交</button>
+        </div>
+    </div>
+    <!-- Flat-UI必要的JavaScript插件 -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+    <!-- 加载和配置Remodal -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery.remodal.js"></script>
+    <script type="text/javascript">
+    window.remodalGlobals = {
+        namespace: "remodal",
+        defaults: {
+            hashTracking: false,
+            closeOnEscape: true,
+            closeOnAnyClick: true
+        }
+    };
+    </script>
+    <!-- 加载和配置formValidation -->
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/formValidation.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/bootstrap.js"></script>
+    <!-- 其他的JavaScript -->
+    <script type="text/javascript">
+    document.getElementById("c2").style.minHeight = document.getElementById("c1").offsetHeight + "px";
+    </script>
+    <script type="text/javascript">
+    // 更改项目状态
+    function changeState() {
+        ajaxFunction("/mochou/index.php/Home/Case/changestate?caseid={$list['id']}");
+    }
+
+    // 查看响应人
+    function show(id){
+        debugger;
+        var caseid=id;
+        window.location.href="/mochou/index.php/Home/Case/show_members?caseid="+caseid;
+    }
+
+    // 关注与取消关注
+    function focusOn() {
+        var focusObj = $('#focusBtn');
+        if(focusObj.hasClass('btn-inverse')) {
+            focusObj.removeClass().addClass('btn btn-embossed btn-danger');
+            focusObj.html('已关注');
+            ajaxFunction("/mochou/index.php/Home/Case/focus?caseid={$list['id']}");
+        }else{
+            focusObj.removeClass().addClass('btn btn-embossed btn-inverse');
+            focusObj.html('关注');
+            ajaxFunction("/mochou/index.php/Home/Case/focus?caseid={$list['id']}");
+        }
+    }
+
+    // 补充项目内容
+    function addContent(){
+        var addContentBlock = document.getElementById('addContentBlock');
+        var addContentTextarea = document.getElementById('addContentTextarea');
+        if(addContentBlock.style.display == 'none'){
+            /*addContentTextarea.innerHTML = '<textarea id="addcontent" class="form-control" rows="3" placeholder="请输入想要补充的内容"></textarea><button class="btn btn-primary btn-embossed" onclick="supplement()">提　交</button>';*/
+            addContentBlock.style.display = 'block';
+        }else{
+            //addContentTextarea.innerHTML = '';
+            addContentBlock.style.display = 'none';
+        }
+    }
+
+    // 提交补充内容
+    function supplement(){
+        var addcontent = document.getElementById('addcontent').value;
+        if(""!=addcontent){
+            ajaxFunction("/mochou/index.php/Home/Case/supplement?caseid={$list['id']}&addcontent="+addcontent);
+        }else{
+            alert("补充内容不能为空!");
+        }
+    }
+
+    // 已经提交过加入申请
+    function hasSubmitJoin() {
+        alert("你已经提交过加入请求了");
+    }
+
+    // 提交加入申请
+    function join() {
+        var content = document.getElementById('content').value;
+        var contact = document.getElementById('contact').value;
+        if(""!=content&&""!=contact){
+            ajaxFunction("/mochou/index.php/Home/Case/join?caseid={$list['id']}&content="+content+"&contact="+contact);
+        }else{
+            alert("请填写你能做的事情与联系方式");
+        }
+    }
+
+    // 评论
+    function reply(){
+        var reply = document.getElementById('reply').value;
+        if(""!=reply){
+            ajaxFunction("/mochou/index.php/Home/Case/reply?caseid={$list['id']}&reply="+reply);
+        }else{
+            alert("回复内容不能为空!");
+        }
+    }
+    
+
+    function ajaxFunction(url){
+        var xmlHttp;
+        try{
+            // Firefox, Opera 8.0+, Safari
+            xmlHttp = new XMLHttpRequest();    // 实例化对象
+        }catch(e){
+            // Internet Explorer
+            try{
+                xmlHttp = new ActiveXObject( "Msxml2.XMLHTTP" );
+            }catch(e){
+                try{
+                    xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+                }catch(e){
+                    alert("您的浏览器不支持AJAX！");
+                    return false;
+                }
+            }
+        }
+        xmlHttp.onreadystatechange = function(){
+            debugger;
+            if(xmlHttp.readyState==4&&xmlHttp.status==200){
+                var result=xmlHttp.responseText;
+                if(result.length!=1){
+                    if(result.length!=2){
+                        alert(result);
+                    }else{
+                        window.location.href="/mochou/index.php/Home/Case/view?caseid={$list['id']}";
+                    }
+                }
+            }
+        };
+        xmlHttp.open("GET", url, true);
+        xmlHttp.send(null);
+    }
+
+    </script>
+</body>
+</html>

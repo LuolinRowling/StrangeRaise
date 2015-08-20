@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>陌筹 | MoChou</title>
+    <!-- 搜索引擎优化 -->
+    <meta name="description" content="陌筹 MoChou 众筹 平台">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+    <!-- 加载Bootstrap样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+    <!-- 加载Flat-UI样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+
+    <!-- 加载Remodal样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+    <!-- 加载FormValidation样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/formValidation.css">
+
+    <!-- 加载陌筹自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+    <!-- 加载和配置Ueditor -->
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/ueditor.all.min.js"> </script>
+    <script type="text/javascript" charset="utf-8" src="/mochou/Public/Ueditor/lang/zh-cn/zh-cn.js"></script>
+    <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+    <div class="mc_background remodal-bg">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <form class="navbar-form navbar-left" action="#" role="search">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="搜索..."/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn" title="搜索">
+                                        <span class="fui-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-user"></span>
+                                <span style="margin-left: 4px;">{$_SESSION['nickname']}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/Case">
+                                <span class="fui-new" title="发起项目"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fui-bubble" title="消息通知"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-gear" title="设置"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/logout">
+                                <span class="fui-exit" title="登出"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container" style="padding-top:85px">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="log-left-list">
+                        <button class="btn btn-primary btn-embossed " style="width:100%" onclick="back()">返回项目</button>
+                        <hr/>
+                        <volist name="list" id="vo">
+                          <div class="log-item">
+                            <div class="log-item-title" style="text-align:left;width:100%">
+                                <img src="/mochou/Public/img/point.png" >
+                                &nbsp;
+                                <a style=" cursor:pointer;color:#000000;">
+                                    <span>{$vo['title']}</span>
+                                </a>
+                            </div>
+                            <div style="text-align:right;width:100%;color:#aaa;font-size:14px" >{$vo['time']}</div>
+                        </div>
+
+                        </volist>
+                        
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="log-initiate">
+                        <a id="text-title"style="margin:0;color:#000000;font-size:30px;font-weight:600" onclick="changeToInput()">{$diary['title']}</a>
+                        <form  action="/mochou/index.php/Home/Log/modify_log?diaryId={$diary['id']}" method="post">
+                            <div id="input-title" class="form-group" style="display:none">
+                                <input name="title" style="height:40px;margin-top:11px;" id="input-block"class="form-control" type="text" onblur="changeToText(this)" onkeypress="return enterPress(this)"/>
+                            </div>
+
+                            <hr/>
+                            <div name="body">
+                                <div class="form-group">
+                                    <div>
+                                        <script id="editor" type="text/plain" style="height:200px;"></script>
+                                    </div>
+                                </div>
+                                <input id="str_body" name="body" type="hidden">
+                            </div>
+
+                            <div class="form-group">
+                                <p class="demo-panel-title" style="font-size:20px"> <strong>添加标签</strong>
+                                </p>
+                                <div class="tagsinput-primary">
+                                    <input maxlength="2" class="tagsinput" data-role="tagsinput" placeholder="输入标签" style="display: none;" name="label" value={$labels}/>
+                                </div>
+
+                                <div style="text-align:center">
+                                    <button type="submit" class="btn btn-primary" style="width:30%" onclick="javascript:setInput();">保存修改</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        // 实例化编辑器
+        var op = {
+            initialContent: '{$diary["body"]}'　　//初始化编辑器的内容
+        };
+        var edt = new baidu.editor.ui.Editor(op);
+        edt.render('editor');
+   
+        var ue = UE.getEditor('editor');
+
+        function changeToInput(){
+            var text = document.getElementById("text-title");
+            var input = document.getElementById("input-title");
+            //  alert("in");
+            text.style.display = 'none';
+            input.style.display ='block';
+            document.getElementById("input-block").focus();
+          
+        }
+
+        function changeToText(input_block){
+            var text = document.getElementById("text-title");
+            var input = document.getElementById("input-title");
+
+            if(input_block.value != ''){
+
+                text.innerHTML = input_block.value;
+            }
+            //  alert(input_block.value);
+            text.style.display = 'block';
+            input.style.display ='none';
+        }
+
+        function enterPress(input_block){
+            if(event.keyCode ==13){
+                var text = document.getElementById("text-title");
+                var input = document.getElementById("input-title");
+                var input_block = document.getElementById("input-block");
+                if(input_block.value != ''){
+                    text.innerHTML = input_block.value;
+                }
+                //  alert(input_block.value);
+                text.style.display = 'block';
+                input.style.display ='none';
+                return false;
+            }
+        }
+
+        function setInput(){
+            var body = document.getElementById("str_body");
+            body.value = ue.getContent();   
+        }
+         function back(){
+            window.location.href="/mochou/index.php/Home/Case/view";
+        }
+    </script>
+    <!-- Flat-UI必要的JavaScript插件 -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+    <!-- 加载和配置formValidation -->
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/formValidation.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/bootstrap.js"></script>
+</body>
+</html>

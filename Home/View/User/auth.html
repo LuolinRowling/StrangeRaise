@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+	<meta charset="UTF-8">
+	<title>陌筹 | MoChou</title>
+	<meta name="description" content="陌筹 MoChou 众筹 平台">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+	<link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+	<!-- 加载Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+	<!-- 加载Flat-UI -->
+	<link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+	<!-- 加载Remodal样式 -->
+	<link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+	<!-- 加载陌筹自定义样式 -->
+	<link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+
+	<!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+	<!--[if lt IE 9]>
+	<script type="text/javascript" src="js/html5shiv.js"></script>
+	<script type="text/javascript" src="js/respond.min.js"></script>
+	<![endif]-->
+
+</head>
+<body>
+	<div class="mc_background hanamin remodal-bg">
+	         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">陌筹</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <form class="navbar-form navbar-left" action="#" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="搜索..."/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default" title="搜索">
+                                    <span class="fui-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        </nav>
+
+
+	<div class="container" style="padding-top: 80px;">
+		<div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
+			<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8" id="c1" style="margin-top:60px;" >
+				<div class="content-card" >
+					<div class="content-card-title"> <strong><p>邮箱验证已完成</p></strong> 
+					</div>
+					<div class="content-card-main">
+						<div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle" style="text-align: center;" >
+								<strong>尊敬的XX：</strong>
+							</div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 contentStyle"  style="text-align: center;" >
+								恭喜您完成邮箱验证！
+							</div>
+							<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 titleStyle">
+								<hr/>
+							</div>
+							<div id="customerBlock">
+								<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 buttonStyle" >
+									<button class="btn btn-embossed btn-inverse" onClick="window.location.href='/mochou/index.php/Home/Index#user-login-modal'" style="width:50%" >登陆</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
+		</div>
+	</div>
+
+</div>
+
+<!-- Flat-UI必要的JavaScript插件 -->
+<script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+<!-- 加载Remodal配置和JavaScript -->
+<script>
+    window.remodalGlobals = {
+        namespace: "remodal",
+        defaults: {
+            hashTracking: false,
+            closeOnEscape: true,
+            closeOnAnyClick: true
+        }
+    };
+
+    function register(){
+        alert("已发送验证邮件至您的邮箱，请注意查收。");
+    }
+    </script>
+<script type="text/javascript" src="/mochou/Public/js/jquery.remodal.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/mochou.js"></script>
+<script type="text/javascript">
+    document.getElementById("c2").style.minHeight = document.getElementById("c1").offsetHeight + "px";
+</script>
+</body>
+</html>

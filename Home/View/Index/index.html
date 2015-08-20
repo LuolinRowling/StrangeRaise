@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>陌筹 | MoChou</title>
+    <!-- 搜索引擎优化 -->
+    <meta name="description" content="陌筹 MoChou 众筹 平台">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+    <!-- 加载Bootstrap样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+    <!-- 加载Flat-UI样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+
+    <!-- 加载Remodal样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+    <!-- 加载FormValidation样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/formValidation.css">
+
+    <!-- 加载陌筹自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+    <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="/mochou/Public/js/md5.js"></script>
+
+    <script type="text/javascript">
+    
+    function ajaxFunction(url){
+        var xmlHttp;
+        try{
+            // Firefox, Opera 8.0+, Safari
+            xmlHttp = new XMLHttpRequest();    // 实例化对象
+        }catch(e){
+            // Internet Explorer
+            try{
+                xmlHttp = new ActiveXObject( "Msxml2.XMLHTTP" );
+            }catch (e){
+                try{
+                    xmlHttp = new ActiveXObject( "Microsoft.XMLHTTP" );
+                }catch(e){
+                    alert("您的浏览器不支持AJAX！");
+                    return false;
+                }
+            }
+        }
+        xmlHttp.onreadystatechange = function(){
+            debugger;
+            if(xmlHttp.readyState==4 && xmlHttp.status==200){
+                var result=xmlHttp.responseText;
+                if(result.length!=1){
+                    if(result.length==3){
+                        window.location.href="/mochou/index.php/Home/Index/index#recommend-case-modal";
+                    }else if(result.length==2){
+                        window.location.href="/mochou/index.php/Home/Index/index";
+                    }else{
+                        document.getElementById("username").value=' ';
+                        alert(result);
+                    }
+                }
+            }
+        };
+        xmlHttp.open( "GET", url, true );
+        xmlHttp.send( null );
+    }
+ 
+    function loginForname(){
+        debugger;
+        var username=document.getElementById("username").value;
+        if( '' != username ) {
+            //alert( value );
+            ajaxFunction( "/mochou/index.php/Home/Index/ajaxLogin?username="+username );    // 注意在后缀.php之后加传值是先用?分隔再添加数据
+        }
+    }
+
+    function login(){
+        var username=document.getElementById("username").value;
+        var password=document.getElementById("password").value;
+        var encryptionPass=hex_md5(password);
+        if(''!=username&&(''!=password)){
+            ajaxFunction( "/mochou/index.php/Home/Index/login?username="+username+"&password="+encryptionPass);
+        }else{
+            alert('NULL');
+        }
+    }
+
+
+    function register(){
+        var femail=document.getElementById("email").value;
+        if( '' != femail ){
+            //alert( value );
+            ajaxFunction( "/mochou/index.php/Home/Index/ajaxRegister?email="+femail);    // 注意在后缀.php之后加传值是先用?分隔再添加数据
+        }
+    }
+</script>
+</head>
+<body>
+    <div class="mc_background remodal-bg">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <form class="navbar-form navbar-left" action="/mochou/index.php/Home/Case/search" role="search" method="post">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" type="text" placeholder="搜索..." name="searchword"/>
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn" title="搜索">
+                                        <span class="fui-search"></span>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                    <ul class="nav navbar-nav navbar-right">
+                        <?php
+                            $nickname = session('nickname');
+                            if($nickname == null) {
+                        ?>
+                        <li>
+                            <a data-remodal-target='user-login-modal'>
+                                <span class='fui-user'></span>
+                                <span style='margin-left: 4px;'>请登录</span>
+                            </a>  
+                        </li>   
+                        <?php
+                            } else {
+                        ?>
+                        <li>
+                            <a href='/mochou/index.php/Home/User/'>
+                                <span class='fui-user'></span><span style='margin-left: 4px;'>{$nickname}</span>
+                            </a>
+                         </li> 
+                         <li>
+                            <a href="/mochou/index.php/Home/Case">
+                                <span class="fui-new" title="发起项目"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="fui-bubble" title="消息通知"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/">
+                                <span class="fui-gear" title="设置"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/mochou/index.php/Home/User/logout">
+                                <span class="fui-exit" title="登出"></span>
+                            </a>
+                        </li>
+                        <?php
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- 广告 -->
+
+        <div class="container-fluid" style="width: 100%;height: 400px;background:url('/mochou/Public/img/banner-background.jpg');background-size:1700px 500px;background-repeat:no-repeat;background-position: center center">
+
+            <div class="container">
+                <div style="color: #fff;text-align: center;padding-top: 90px;padding-bottom: 20px;">
+                    <h3 style="color: #fff;text-shadow: 1px 2px 5px #000;">我有一个想法</h3>
+                    <h3 style="color: #fff;text-shadow: 1px 2px 5px #000;">还缺一个你</h3>
+                </div>
+                <div style="text-align: center">
+                    <?php
+                    if($nickname == null) {
+                        echo "<button id='remodal-trigger' class='btn btn-hg btn-embossed btn-primary' data-remodal-target='user-register-modal'>发起项目</button>";
+                    } else {
+                        echo "<a id='remodal-trigger' class='btn btn-hg btn-embossed btn-primary' href='/mochou/index.php/Home/Case'>发起项目</a>";
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <!-- 广告结束 -->
+        <!-- 项目列表 -->
+        <div class="container" style="padding-top: 35px;">
+            <div class="row">
+                <volist name="list" id="vo">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
+                    <div class="card">
+                        <div class="card-top"></div>
+                        <div class="card-pic">
+                            <img src="{$vo['head']}"></div>
+                        <div class="card-author"><a style="cursor:pointer;" href="/mochou/index.php/Home/User/view?id={$vo['userid']}">{$vo['nickname']}</a></div>
+                        <br />
+                        <div class="card-time">{$vo['publishtime']}</div>
+                        <a style="cursor:pointer;" href="/mochou/index.php/Home/Case/view?caseid={$vo['id']}">
+                            <div class="card-title">
+                                <p>{$vo['title']}</p>
+                            </div>
+                            <div class="card-content">
+                                {$vo['content']}
+                            </div>
+                        </a>
+                        <hr>
+                        <div class="card-tags">
+                            <div class="fui-tag" >
+                                <?php 
+                                for($i=0;$i<count($vo)-13;$i++) {
+                                    echo "<span style='font-size:15px'>";
+                                    echo $vo[$i];
+                                    echo "</span>";
+                                    echo " ";
+                                }
+                                ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </volist>
+            </div>
+        </div>
+        <!-- 项目列表结束 -->
+        <!-- 用户注册模态框 -->
+        <div class="remodal" data-remodal-id="user-register-modal">
+            <h1>Join Us!</h1>
+            <p><strong>[ 仅需两步加入我们 ]</strong></p>
+            <form id="user-register-form" method="post" action="/mochou/index.php/Home/Index/register">
+                <div class="form-group">
+                    <p><label class="control-label" style="font-size: 18px">第一步：填写你的邮箱地址</label></p>
+                    <input type="text" placeholder="你的邮箱地址" class="form-control" id="email" name="email" style="width:260px;margin:0 auto">
+                </div>
+                <button class="btn btn-primary btn-embossed" type="submit" style="width: 260px;">发　　送</button>
+            </form>
+            <p style="margin-top:15px;margin-bottom:0">已有账号？<a data-remodal-target="user-login-modal" style="cursor:pointer;">登录</a></p>
+        </div>
+        <!-- 用户注册模态框结束 -->
+        <!-- 用户登录模态框 -->
+        <div class="remodal" data-remodal-id="user-login-modal">
+            <h1>Welcome Back!</h1>
+            <p><strong>[ 欢迎回到陌筹 ]</strong></p>
+            <form id="user-login-form">
+                <div class="form-group">
+                    <input type="email" placeholder="邮箱地址" class="form-control" id="username" name="username" style="width: 260px;margin:0 auto">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="密码" class="form-control" id="password" name="password" style="width: 260px;margin:0 auto">
+                </div>
+                <button class="btn btn-primary btn-embossed" onclick="login()" style="width: 260px;">登　录</button>
+            </form>
+            <p style="margin-top:15px;margin-bottom:0">还没有账号？<a data-remodal-target="user-register-modal" style="cursor:pointer;">注册</a></p>
+        </div>
+        <!-- 用户登录模态框结束 -->
+        <!-- 推荐项目模态框 -->
+        <div class="remodal" data-remodal-id="recommend-case-modal">
+            <h3>你可能感兴趣的项目</h3><p></p>
+            <volist name="recommendcases" id="rec">
+                <div class="row">
+                    <div class="span3">
+                        <div class="tile" style="background-color: #E1E2E5 ;">
+                            <h3 class="tile-title">{$rec['title']}</h3><p></p>
+                            <a class="btn btn-primary btn-large btn-block" href="/mochou/index.php/Home/Case/view?caseid={$rec['caseid']}" target="_blank" style="display:inline-block;width:40%">查 看</a>
+                        </div>
+                    </div>
+                </div>
+            </volist>
+        </div>
+        <!-- 推荐项目模态框结束 -->
+        <!-- 推荐用户模态框 -->
+        <div class="remodal" data-remodal-id="user-register-modal">
+            <h3>他们也许能帮助你</h3>
+            <p> <strong></strong>
+            </p>
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                <div class="thumbnail" style="border: 2px solid #E1E9EF;">
+                  <img src="img/pic.png" alt="..." style="border: 5px solid;border-color: #FFFFFF;width: 90px;height: 90px;border-radius: 50%;">
+                  <div class="caption">
+                    <p>...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <!-- 推荐用户模态框结束 -->
+
+    </div>
+
+    <!-- Flat-UI必要的JavaScript插件 -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+    <!-- 加载和配置Remodal -->
+    <script type="text/javascript" src="/mochou/Public/js/jquery.remodal.js"></script>
+    <script type="text/javascript">
+    window.remodalGlobals = {
+        namespace: "remodal",
+        defaults: {
+            hashTracking: false,
+            closeOnEscape: true,
+            closeOnAnyClick: true
+        }
+    };
+    </script>
+    <!-- 加载和配置formValidation -->
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/formValidation.js"></script>
+    <script type="text/javascript" src="/mochou/Public/js/formValidation/bootstrap.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#user-register-form')
+            .formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                fields: {
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: '邮箱地址不能为空'
+                            },
+                            emailAddress: {
+                                message: '填写的邮箱地址无效'
+                            },
+                            stringLength: {
+                                max: 40,
+                                message: '邮箱地址长度不能超过40个字符'
+                            }
+                        }
+                    }
+                }
+            });
+        $('#user-login-form')
+            .formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                fields: {
+                    email: {
+                        validators: {
+                            notEmpty: {
+                                message: '邮箱地址不能为空'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: '密码不能为空'
+                            }
+                        }
+                    }
+                }
+            });
+    });
+    </script>
+
+    <!-- 其他的JavaScript -->
+    <script type="text/javascript">
+    // function register(){
+    //     alert("已发送验证邮件至您的邮箱，请注意查收。");
+    // }
+    $('input#email').on({
+        keydown: function(event){
+            if (event.which === 32)
+                return false;
+        },
+        change: function(){
+            this.value = this.value.replace(/\s/g, "");
+        }
+    });
+    $('input#password').on({
+        keydown: function(event){
+            if (event.which === 32)
+                return false;
+        },
+        change: function(){
+            this.value = this.value.replace(/\s/g, "");
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head lang="zh-cn">
+    <meta charset="UTF-8">
+    <title>陌筹 | MoChou</title>
+    <meta name="description" content="陌筹 MoChou 众筹 平台">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/mochou/Public/img/favicon.ico">
+    <!-- 加载Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/bootstrap.css">
+    <!-- 加载Flat-UI -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/flat-ui.css">
+    <!-- 加载Remodal样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/jquery.remodal.css">
+    <!-- 加载FormValidation样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/formValidation.css">
+    <!-- 加载陌筹自定义样式 -->
+    <link rel="stylesheet" type="text/css" href="/mochou/Public/css/mochou.css">
+    <!-- HTML5-shim用于IE6-8浏览器支持HTML5元素, 其他所有的JavaScript在文件尾部 -->
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="js/html5shiv.js"></script>
+    <script type="text/javascript" src="js/respond.min.js"></script>
+    <![endif]-->
+    <!-- 加载justfont网络字体 -->
+    <!--;q.getElementById('justfont-badge').style.display='none'-->
+<script type="text/javascript">
+    function show_detail(content,contact){
+       
+       
+        document.getElementById('content').innerHTML=content;
+        document.getElementById('contact').innerHTML=contact;
+        
+    }
+
+    function refuse(email){
+        
+        // document.getElementById('email').val;
+        $('#email').val(email);
+    }
+
+    function agree(id,caseid){
+        window.location.href="/mochou/index.php/Home/Case/agree?id="+id+"&caseid="+caseid;
+    }
+
+   
+</script>
+</head>
+<body>
+    <!-- 主容器 -->
+    <div class="mc_background hanamin remodal-bg">
+         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/mochou/index.php/Home/Index">陌筹</a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar-collapse">
+                <form class="navbar-form navbar-left" action="#" role="search">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="搜索..."/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-default" title="搜索">
+                                    <span class="fui-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/mochou/index.php/Home/User/">
+                            <span class="fui-user"></span>
+                            <span style="margin-left: 4px;">{$_SESSION['nickname']}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/Case/">
+                            <span class="fui-new" title="发起项目"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <span class="fui-bubble" title="消息通知"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/User/">
+                            <span class="fui-gear" title="设置"></span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/mochou/index.php/Home/User/logout">
+                            <span class="fui-exit" title="登出"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </nav>
+        <div class="container" style="margin-top:53px;">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="classification-card" style="margin-top:25px">
+
+                        <p class="project-name" style="width:90%;margin:0 auto;">项目名</p>
+
+                        <div class="request-block">
+                            <p class="classification-title" style="width:90%;margin:0 auto;">申请加入的人</p>
+                            <table class="table table-striped request-table" style="width:90%;margin:0 auto;text-align:center">
+                                <tr >
+                                    <th style="text-align:center">头像</th>
+                                    <th style="text-align:center">昵称</th>
+                                    <th style="text-align:center">申请加入时间</th>
+                                    
+                                    <th style="text-align:center">操作</th>
+                                </tr>
+
+                                <volist name="list1" id="vo">
+                                     <tr>
+                                    <td>
+                                        <img src="{$vo['head']}" style="border-radius:50%;width:50px;height:50px"></td>
+                                    <td>
+                                        <p>{$vo['nickname']}</p>
+                                    </td>
+                                    <td>
+                                        <p>{$vo['time']}</p>
+                                    </td>
+                                    <td>
+
+                                        <button class="btn btn-inverse" onclick="show_detail('{$vo['content']}', '{$vo['contact']}')" data-remodal-target="show-request-modal">查看请求</button>
+
+  
+
+                                        <button class="btn btn-inverse" onclick="refuse('{$vo['email']}')" data-remodal-target="reject-modal" >谢绝</button>
+
+                                        <button class="btn btn-inverse" onclick="agree('{$vo['id']}','{$vo['caseid']}')">同意加入</button>
+                                    </td>
+                                </tr>
+
+                                </volist>
+                               
+
+                               
+                            </table>
+                        </div>
+
+                        <div class="joined-block">
+                            <p class="classification-title" style="width:90%;margin:0 auto;">已加入的人</p>
+                            <table class="table table-striped joined-table" style="width:90%;margin:0 auto;text-align:center">
+                                <tr >
+                                    <th style="text-align:center">头像</th>
+                                    <th style="text-align:center">昵称</th>
+                                    <th style="text-align:center">备注</th>
+                                    <th style="text-align:center">加入时间</th>
+                                    
+                                    <th style="text-align:center">操作</th>
+                                </tr>
+                                
+
+                                 <volist name="list2" id="vo2">
+                                     <tr>
+                                     <td>
+                                        <img src="{$vo2['head']}" style="border-radius:50%;width:50px;height:50px"></td>
+                                    <td>
+                                        <p>{$vo2['nickname']}</p>
+                                    </td>
+                                                                   <td>
+                                        <p>我是备注</p>
+                                    </td>
+                                    <td>
+                                        <p>{$vo2['time']}</p>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-inverse" onclick="show_detail('{$vo2['content']}', '{$vo2['contact']}')" data-remodal-target="show-request-modal">查看请求</button>
+                                        <button class="btn btn-inverse">修改备注</button>
+                                    </td>
+                                </tr>
+
+                                </volist>
+                               
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- </div>--></div>
+            </div>
+        </div>
+        <!-- 用户注册模态框 -->
+        <div class="remodal" data-remodal-id="show-request-modal">
+            <h1>I Can Help !</h1>
+            <!--         <p> <strong>[ 我也迫不及待想认识你了 ]</strong>
+        </p>
+        -->
+        <!-- <form>
+        -->
+        <p > <strong>[ 我所能做的事情 ]</strong>
+        </p>
+        <!-- <div class="form-group" >
+        <textarea class="form-control" rows="3" style="width:80%;margin:0 auto" ></textarea>
+    </div>
+    -->
+    <p id="content"></p>
+    <p>
+        <strong>[ 我的联系方式 ]</strong>
+    </p>
+    <p id="contact"></p>
+    <!--  <div class="form-group" >
+    <textarea class="form-control" rows="1" style="width:80%;margin:0 auto"></textarea>
+</div>
+-->
+<!--  <button class="btn btn-primary btn-embossed" type="submit" style="width: 260px;">提　交</button>
+-->
+<!-- </form>--></div>
+
+<div class="remodal" data-remodal-id="reject-modal">
+    <h1>Sorry For This .</h1>
+
+    <form action="/mochou/index.php/Home/Case/refuse" method="post">
+        <p>
+            <strong>[ 感谢一下这个愿意帮助你的人 ]</strong>
+        </p>
+        <div class="form-group" >
+            <textarea id="content" name="content" class="form-control" rows="3" style="width:80%;margin:0 auto" ></textarea>
+        </div>
+        <input  id="email" name="email" style="display:none"/>
+        <button class="btn btn-primary btn-embossed" type="submit" style="width: 260px;">谢　绝</button>
+    </form>
+
+</div>
+
+<!-- 用户注册模态框结束 -->
+</div>
+<!-- Flat-UI必要的JavaScript插件 -->
+<script type="text/javascript" src="/mochou/Public/js/jquery-1.11.2.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/flat-ui.js"></script>
+<script type="text/javascript" src="/mochou/Public/js/application.js"></script>
+<!-- 加载Remodal配置和JavaScript -->
+<script type="text/javascript">
+    window.remodalGlobals = {
+        namespace: "remodal",
+        defaults: {
+            hashTracking: false,
+            closeOnEscape: true,
+            closeOnAnyClick: true
+        }
+    };
+
+    </script>
+<!-- 加载formValidation -->
+<script type="text/javascript" src="/mochou/Public/js/jquery.remodal.js"></script>
+</body>
+</html>

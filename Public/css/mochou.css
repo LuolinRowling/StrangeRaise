@@ -1,0 +1,533 @@
+/* 陌筹自定义样式 */
+*, html {
+    font-family: "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+}
+
+body {
+    background-color: rgba(236, 240, 241, 0.3);
+}
+
+.mc_background {
+    width: 100%;
+}
+
+input#email,
+input#password {
+    width: 260px;
+    padding-right: 40px;
+}
+
+.card {
+    width: auto;
+    height: 450px;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+}
+
+.card .card-top {
+    width: 100%;
+    height: 110px;
+    background: url('../img/12.jpg');
+    background-size: 100% 110px;
+}
+
+.card .card-pic {
+    margin: 10px;
+    position: relative;
+}
+
+.card .card-pic img {
+    border: 5px solid;
+    border-color: #FFFFFF;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 100;
+    top: -55px;
+    left: 20px;
+}
+
+.card .card-author {
+    position: relative;
+    top: -47px;
+    left: 130px;
+    color: #FFFFFF;
+    z-index: 50;
+    font-size: 20px;
+    display: inline;
+}
+
+
+
+.card .card-time {
+    position: relative;
+    top: -40px;
+    left: 130px;
+    z-index: 50;
+    font-size: 15px;
+    display: inline;
+}
+
+.card .card-title {
+    font-size: 32px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin: 0 auto;
+    margin-left: 28px;
+    margin-right: 28px;
+    margin-bottom: 0;
+    margin-top: -30px
+}
+
+.card a {
+    color: #000000;
+}
+
+.card a:hover {
+    color: #34495e;
+}
+
+.card-author a {
+
+    color: #FFFFFF;
+}
+
+
+.card-title p {
+    margin: 0;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.card .card-content {
+    font-size: 14px;
+    margin-left: 28px;
+    margin-right: 28px;
+    padding-bottom: 10px;
+}
+
+.card hr {
+    margin-left: 28px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    margin-right: 28px;
+}
+
+.card .card-tags {
+    margin: auto;
+    margin-left: 28px;
+    margin-right: 28px;
+}
+
+.card .card-tags button {
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+    cursor: default;
+}
+
+.content-card {
+    width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+}
+
+.content-card .content-card-title {
+    background-color: #2f4154;
+    width: auto;
+    height: 130px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.content-card .content-card-title p {
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 28px;
+    font-size: 32px;
+}
+
+.content-card .content-card-pic {
+    margin: 10px;
+    position: relative;
+    text-align: center;
+}
+
+.content-card .content-card-pic img {
+    border: 5px solid;
+    border-color: #FFFFFF;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    z-index: 100;
+    top: -55px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.content-card .content-card-state {
+    margin: 10px;
+    position: relative;
+}
+
+.content-card .content-card-state img {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    z-index: 100;
+    top: -150px;
+    right: -20px;
+}
+
+.content-card .content-card-main {
+    background-color: #FFFFFF;
+    width: 100%;
+    height: auto;
+    padding-bottom: 30px;
+    margin-top: 50px;
+}
+
+.content-card-main .infoStyle {
+    text-align: center;
+    font-size: 16px;
+}
+
+.content-card-main .titleStyle {
+    width: 100%;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+.content-card-main .contentStyle {
+    width: 100%;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 20px;
+    font-size: 16px;
+}
+
+.contentStyle table {
+    width: 100%;
+    text-align: center;
+}
+
+.contentStyle th {
+    text-align: center;
+}
+
+.contentStyle .tags {
+    background-color: #2f4154;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#addContentBlock {
+    display: none;
+    margin-top: 20px;
+}
+
+#addContentBlock form {
+    padding-left: 55px;
+    padding-right: 55px;
+}
+
+#addContentTextarea {
+    padding-top: 20px;
+}
+
+#addContentTextarea textarea {
+    width: 100%;
+    margin: 0 auto;
+}
+
+#addContentTextarea button {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#customerBlock .buttonStyle {
+    text-align: center;
+    font-size: 16px;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 20px;
+}
+
+#ownerBlock .buttonStyle {
+    text-align: center;
+    font-size: 16px;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 20px;
+}
+
+#customerBlock button {
+    width: 100%;
+}
+
+#ownerBlock button {
+    width: 100%;
+}
+
+.classification-card {
+    width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+}
+
+.request-table td { 
+    margin: auto;
+}
+
+.request-table td p {
+    margin: 0;
+}
+
+.joined-table td {
+    vertical-align: baseline;
+}
+
+.person-info {
+    width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    text-align: center;
+}
+
+.person-img {
+    width: 100%;
+    height: 150px;
+    position: relative;
+    background: url('../img/26.jpg');
+    background-size: 100% 150px;
+}
+
+.person-img img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    border: 2px solid;
+    border-color: #FFFFFF;
+    margin: auto auto;
+}
+
+.function-list-group {
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+.function-list-group a {
+    color: #555;
+    position: relative;
+    display: block;
+    padding: 10px 15px;
+    margin-top: -1px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+}
+
+.modify-info {
+    width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    text-align: center;
+}
+
+/*阿福加的CSS*/
+.content-card .content-card-title-sm {
+    background-color: #2f4154;
+    width: auto;
+    height: 60px;
+    text-align: center;
+    color: #ffffff;
+}
+
+.content-card .content-card-title-sm p {
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    padding-top: 12px;
+    font-size: 25px;
+}
+
+.content-card-main .pubBtnStyle {
+    width: 100%;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 1px;
+    font-size: 20px;
+}
+
+.content-card-main .titleStyle-right {
+    width: 100%;
+    height: auto;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.content-card-main .titleStyle-right strong {
+    margin-left: 25px;
+}
+
+.titleStyle-right .hr-long hr {
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: : 0px;
+    margin-bottom: 5px;
+}
+
+.content-card-main .formStyle {
+    width: 100%;
+    height: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+    font-size: 16px;
+}
+
+.content-card-main .contentStyle-right {
+    width: 100%;
+    height: auto;
+    padding-left: 55px;
+    padding-right: 55px;
+    padding-top: 10px;
+    font-size: 16px;
+}
+/*这里结束了阿福的CSS*/
+
+
+/* Remodal样式 */
+html.remodal-is-locked {
+    overflow: visible;
+}
+
+.remodal,
+.remodal * {
+    font-family: "Microsoft YaHei", "Hiragino Sans GB", "WenQuanYi Micro Hei", sans-serif;
+}
+
+.remodal-overlay {
+    background: rgba(33, 36, 46, 0.55);
+}
+
+/* Flat-UI样式 */
+nav {
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+}
+
+.container {
+    min-width: 300px !important;
+}
+
+
+
+/*20150603 LuoLin*/
+.log {
+    display: inline-block;
+    width: 100%
+}
+.log-line-left{
+    float:left;
+}
+
+.log-line-left img{
+    height:100%;
+    vertical-align:middle;
+}
+
+.log-line-left a{
+   cursor:pointer;
+   color:#000000;
+ 
+}
+.log-title{
+    font-size:16px
+}
+.log-title:hover{
+    color: #16A085;
+}
+
+.log-line-right{
+   
+    float:right;
+    color:#aaa;
+    font-size:14px;
+    margin-top: 9px;
+}
+.log-like{
+    color: #e74c3c;
+}
+
+.log-see{
+    color: #34495e;
+}
+
+
+.log-left-list{
+        width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+padding: 25px
+
+}
+
+.log-initiate{
+         width: auto;
+    height: auto;
+    background-color: #ffffff;
+    margin-bottom: 30px;
+    -webkit-box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    box-shadow: 0px 3px 2px rgba(0, 0, 0, 0.175);
+    padding: 25px
+}
+
+.log-left-list .log-item-title span{
+    font-size: 16px
+}
+
+.log-left-list .log-item-title span:hover{
+     color: #16A085;
+}
+
+
+.log-initiate .tags {
+    background-color: #2f4154;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: default;
+}
